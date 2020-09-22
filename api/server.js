@@ -4,8 +4,11 @@ const connect = require('./db');
 // connect to db
 connect();
 
-// configure app and routes
+// configure app
 const app = express();
+app.use(express.json({ extended: false }));
+
+// configure routes
 const usersRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const profileRoute = require('./routes/profile');
