@@ -1,3 +1,5 @@
 {
-  "mongoURI": "mongodb://localhost:27017"
+  "mongoURI": "mongodb://localhost:27017",
+  "jwtSecret": "cfc82420ef5d0672e62e90777fb6c6085b8b6fb8757a3e6c9e2d8fac8a7afb8e94afd9e585f84ea5a4c02afea9b514350fd8f455535adca18a1fb6e7b950338c",
+  "jwtExpiresIn": 3600
 }

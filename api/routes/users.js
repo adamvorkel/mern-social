@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+const config = require('config');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
@@ -36,9 +38,24 @@ router.post(
       // create user
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-      const newUser = new User({ name, email, hashedPassword });
+      const newUser = new User({ name, email, password: hashedPassword });
       await newUser.save();
-      return res.send('User registered');
+
+      // create token
+      const payload = {
+        user: {
+          id: newUser.id,
+        },
+      };
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: config.get('jwtExpiresIn') },
+        (err, token) => {
+          if (err) throw err;
+          return res.json({ token });
+        }
+      );
     } catch (error) {
       console.error(error.message);
       return res.status(500).send('Server error');
