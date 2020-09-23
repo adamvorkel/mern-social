@@ -92,4 +92,29 @@ router.post(
   }
 );
 
+// @route PUT api/posts/like/:post_id
+// @desc Like post with post_id
+// @access protected
+router.put('/like/:post_id', auth, async (req, res) => {
+  const post_id = req.params.post_id;
+  try {
+    const post = await Post.findById(post_id);
+
+    // check to ensure post has not already been liked by user
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id).length >
+      0
+    ) {
+      return res.status(400).json({ msg: 'Post already liked' });
+    }
+
+    post.likes.unshift({ user: req.user.id });
+    await post.save();
+    return res.json(post.likes);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
