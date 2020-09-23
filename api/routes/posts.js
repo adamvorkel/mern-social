@@ -7,6 +7,19 @@ const Profile = require('../models/Profile');
 const Post = require('../models/Post');
 const auth = require('../middleware/auth');
 
+// @route GET api/posts
+// @desc Get all posts
+// @access protected
+router.get('/', auth, async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ date: -1 });
+    return res.json(posts);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Server error');
+  }
+});
+
 // @route POST api/posts
 // @desc Create a post
 // @access protected
