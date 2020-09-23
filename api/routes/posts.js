@@ -176,4 +176,35 @@ router.post('/comment/:post_id', [
   },
 ]);
 
+// @route DELETE api/posts/comment/:post_id/:comment_id
+// @desc Delete a comment with comment_id on post with post_id
+// @access protected
+router.delete('/comment/:post_id/:comment_id', auth, async (req, res) => {
+  const user_id = req.user.id;
+  const post_id = req.params.post_id;
+  const comment_id = req.params.comment_id;
+  try {
+    const post = await Post.findById(post_id);
+    // get comment
+    const comment = post.comments.find((comment) => comment.id === comment_id);
+    if (!comment) {
+      return res.status(404).json({ msg: 'Comment not found' });
+    }
+    // check to ensure user attempting to delete comment is comment author
+    if (comment.user.toString() !== user_id) {
+      return res.status(401).json({ msg: 'Not authorized to delete comment' });
+    }
+    // remove comment
+    const removeIndex = post.comments
+      .map((comment) => comment.user.toString())
+      .indexOf(user_id);
+    post.comments.splice(removeIndex, 1);
+    await post.save();
+    return res.json(post.comments);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
