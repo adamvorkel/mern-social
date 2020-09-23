@@ -147,4 +147,33 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
   }
 });
 
+// @route POST api/posts/comment/:post_id
+// @desc Comment on post with post_id
+// @access protected
+router.post('/comment/:post_id', [
+  auth,
+  [check('body', 'Comment body is required').not().isEmpty()],
+  async (req, res) => {
+    const user_id = req.user.id;
+    const post_id = req.params.post_id;
+    try {
+      const user = await User.findById(user_id).select('-password');
+      const post = await Post.findById(post_id);
+
+      // create new comment
+      const newComment = {
+        body: req.body.body,
+        username: user.name,
+        user: user_id,
+      };
+      post.comments.unshift(newComment);
+      await post.save();
+      return res.json(post.comments);
+    } catch (error) {
+      console.error(error.message);
+      return res.status(500).send('Server error');
+    }
+  },
+]);
+
 module.exports = router;
