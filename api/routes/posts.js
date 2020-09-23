@@ -105,10 +105,40 @@ router.put('/like/:post_id', auth, async (req, res) => {
       post.likes.filter((like) => like.user.toString() === req.user.id).length >
       0
     ) {
-      return res.status(400).json({ msg: 'Post already liked' });
+      return res.status(400).json({ msg: 'Post has already been liked' });
     }
 
+    // add like
     post.likes.unshift({ user: req.user.id });
+    await post.save();
+    return res.json(post.likes);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Server error');
+  }
+});
+
+// @route PUT api/posts/unlike/:post_id
+// @desc Unlike (remove users like) post with post_id
+// @access protected
+router.put('/unlike/:post_id', auth, async (req, res) => {
+  const post_id = req.params.post_id;
+  try {
+    const post = await Post.findById(post_id);
+
+    // check to ensure that post has already been likes by user
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id)
+        .length === 0
+    ) {
+      return res.status(400).json({ msg: 'Post has not yet been liked' });
+    }
+
+    // remove like
+    const removeIndex = post.likes
+      .map((like) => like.user.toString())
+      .indexOf(req.user.id);
+    post.likes.splice(removeIndex, 1);
     await post.save();
     return res.json(post.likes);
   } catch (error) {
