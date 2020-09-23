@@ -20,6 +20,24 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route GET api/posts/:post_id
+// @desc Get post by post id
+// @access protected
+router.get('/:post_id', auth, async (req, res) => {
+  const post_id = req.params.post_id;
+  try {
+    const post = await Post.findById(post_id);
+    if (!post) {
+      return res.status(404).json({ msg: 'No post found for post id' });
+    } else {
+      return res.json(post);
+    }
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Server error');
+  }
+});
+
 // @route POST api/posts
 // @desc Create a post
 // @access protected
