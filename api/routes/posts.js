@@ -38,6 +38,32 @@ router.get('/:post_id', auth, async (req, res) => {
   }
 });
 
+// @route DELETE api/posts/:post_id
+// @desc Delete post by post id
+// @access protected
+router.delete('/:post_id', auth, async (req, res) => {
+  const post_id = req.params.post_id;
+  try {
+    const post = await Post.findById(post_id);
+
+    if (!post) {
+      return res.status(404).json({ msg: 'No post found for post id' });
+    }
+
+    // check to ensure user attempting to delete post is post author
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized to delete post' });
+    }
+
+    // delete post
+    await post.remove();
+    res.json({ msg: 'Post removed' });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Server error');
+  }
+});
+
 // @route POST api/posts
 // @desc Create a post
 // @access protected
