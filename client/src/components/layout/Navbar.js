@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -21,9 +22,12 @@ const Navbar = () => {
               <a href='/'>Adam</a>
             </div>
           </li>
-          <li>Link 2</li>
-          <li>Link 3</li>
-          <li>Link 4</li>
+          <li>
+            <Link to='/login'>Login</Link>
+          </li>
+          <li>
+            <Link to='/register'>Register</Link>
+          </li>
         </ul>
       </nav>
     </header>
