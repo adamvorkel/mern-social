@@ -71,7 +71,7 @@ const RegisterView = () => {
             />
           </div>
           <div className='form-group'>
-            <button type='submit' className='primary-button'>
+            <button type='submit' className='primary-button fat'>
               Register
             </button>
           </div>

@@ -14,11 +14,15 @@ function App() {
     <Provider store={store}>
       <div className='App'>
         <Router>
-          <Navbar />
-          <Route exact path='/' component={LandingView} />
           <Switch>
-            <Route exact path='/login' component={LoginView} />
-            <Route exact path='/register' component={RegisterView} />
+            <Route exact path='/' component={LandingView} />
+            <Route>
+              <Navbar />
+              <Switch>
+                <Route exact path='/login' component={LoginView} />
+                <Route exact path='/register' component={RegisterView} />
+              </Switch>
+            </Route>
           </Switch>
         </Router>
       </div>
