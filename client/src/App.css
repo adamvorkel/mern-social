@@ -12,8 +12,30 @@
   padding: 0;
 }
 
+body {
+  font-family: var(--font-text);
+  font-size: 0.9rem;
+  line-height: 1.75em;
+  color: #14171a;
+}
+
+form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
 input {
   font-size: 1em;
+  border-radius: 0.3rem;
+  background-color: var(--light-bg);
+  padding: 1.2rem;
+  border: none;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
 }
 
 input[type='search']::-webkit-search-decoration,
@@ -23,15 +45,30 @@ input[type='search']::-webkit-search-results-decoration {
   display: none;
 }
 
-body {
-  font-family: var(--font-text);
-  font-size: 0.9rem;
-  line-height: 1.75em;
+button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1em;
+}
+
+button:focus {
+  outline: none;
+}
+
+.primary-button {
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
 a {
   text-decoration: none;
   color: var(--primary-color);
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
 }
 
 h1,
@@ -43,14 +80,38 @@ h6 {
   font-family: var(--font-display);
 }
 
+h1 {
+  /* font-size: 1.25rem; */
+}
+
+/**
+* Layout
+**/
+.view {
+  margin-top: 3rem;
+}
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group button {
+  width: 100%;
+}
+
 /**
 * Navbar
 **/
 #navbar {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
-  padding: 1.5rem var(--gap);
+  padding: 1.5rem;
 }
 
 #navbar {
@@ -73,6 +134,7 @@ h6 {
   display: flex;
   background-color: var(--light-bg);
   border-radius: 2rem;
+  display: none;
 }
 
 #navbar-search-icon {
@@ -83,13 +145,12 @@ h6 {
 }
 
 #navbar-search input {
-  padding: 0.8rem;
-  border: none;
   background: transparent;
+  padding: 0.8rem;
 }
 
-#navbar-search input:focus {
-  outline: none;
+#navbar nav {
+  margin-left: auto;
 }
 
 #navbar nav ul {
@@ -107,6 +168,7 @@ h6 {
   flex-direction: row;
   align-items: center;
   margin-right: 2rem;
+  display: none;
 }
 
 #navbar nav ul li .navbar-account-link a {
@@ -121,4 +183,20 @@ h6 {
   border-radius: 50%;
   background-color: #333;
   margin-right: 0.5rem;
+}
+
+/**
+* Navbar
+**/
+
+#login,
+#register {
+  text-align: center;
+}
+
+#login form,
+#register form {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }

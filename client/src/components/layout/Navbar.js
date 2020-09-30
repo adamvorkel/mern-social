@@ -14,6 +14,7 @@ const Navbar = () => {
         </span>
         <input type='search'></input>
       </div>
+
       <nav>
         <ul>
           <li>
