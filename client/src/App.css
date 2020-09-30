@@ -1,6 +1,7 @@
 :root {
   --font-display: 'Jost', sans-serif;
   --font-text: 'Roboto', sans-serif;
+  --font-bold: 700;
 
   --light-bg: #f0f2f5;
   --primary-color: #1b95e0;
@@ -50,6 +51,7 @@ button {
   border: none;
   border-radius: 2rem;
   font-size: 1em;
+  font-weight: var(--font-bold);
 }
 
 button:focus {
@@ -78,10 +80,6 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-}
-
-h1 {
-  /* font-size: 1.25rem; */
 }
 
 /**
