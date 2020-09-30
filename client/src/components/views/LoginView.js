@@ -43,6 +43,7 @@ const LoginView = () => {
               required
             />
           </div>
+
           <div className='form-group'>
             <button type='submit' className='primary-button fat'>
               Login

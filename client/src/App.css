@@ -116,6 +116,21 @@ h6 {
   margin: 0 auto;
 }
 
+.alerts {
+  padding: 1rem 0;
+  background-color: #efefef;
+}
+
+.alerts .alert {
+  background-color: orange;
+  padding: 0.6rem 1.8rem;
+  color: #fff;
+}
+
+.alert.alert-error {
+  background-color: #9f2222;
+}
+
 .form-group {
   margin-bottom: 1.2rem;
 }

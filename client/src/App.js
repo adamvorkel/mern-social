@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import Navbar from './components/layout/Navbar';
+import Alert from './components/layout/Alert';
 import LandingView from './components/views/LandingView';
 import LoginView from './components/views/LoginView';
 import RegisterView from './components/views/RegisterView';
@@ -18,6 +19,7 @@ function App() {
             <Route exact path='/' component={LandingView} />
             <Route>
               <Navbar />
+              <Alert />
               <Switch>
                 <Route exact path='/login' component={LoginView} />
                 <Route exact path='/register' component={RegisterView} />

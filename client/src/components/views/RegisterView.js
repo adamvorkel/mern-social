@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const RegisterView = () => {
+const RegisterView = ({ setAlert }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,7 +17,7 @@ const RegisterView = () => {
     e.preventDefault();
     if (formData.password !== formData.password2) {
       // TODO: show password match error in UI
-      console.log('Passwords do not match');
+      console.log('Passwords must match');
     } else {
       // TODO: post to users api endpoint to create new user
       // TODO: display success message if all goes well
@@ -84,4 +85,4 @@ const RegisterView = () => {
   );
 };
 
-export default RegisterView;
+export default connect()(RegisterView);
