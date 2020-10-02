@@ -5,6 +5,7 @@ const initState = {
   isAuthenticated: null,
   user: null,
   loading: true,
+  errors: null,
 };
 
 const auth = (state = initState, action) => {
@@ -12,11 +13,22 @@ const auth = (state = initState, action) => {
   switch (type) {
     case REGISTER_SUCCESS:
       localStorage.setItem('auth-token', payload.token);
-      return { ...state, ...payload, isAuthenticated: true, loading: false };
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+        errors: null,
+      };
     case REGISTER_FAIL:
       localStorage.removeItem('auth-tokens');
-      console.log('Register errors', payload);
-      return { ...state, token: null, isAuthenticated: false, loading: false };
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        errors: payload.errors,
+      };
     default:
       return state;
   }

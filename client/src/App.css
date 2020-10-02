@@ -5,6 +5,8 @@
 
   --light-bg: #f0f2f5;
   --primary-color: #1b95e0;
+  --error-color: #9f2222;
+  --success-color: #337733;
 }
 
 * {
@@ -128,7 +130,15 @@ h6 {
 }
 
 .alert.alert-error {
-  background-color: #9f2222;
+  background-color: var(--error-color);
+}
+
+.error {
+  color: var(--error-color);
+}
+
+.success {
+  color: var(--success-color);
 }
 
 .form-group {

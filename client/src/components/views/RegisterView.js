@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { register } from '../../actions/auth';
 
-const RegisterView = ({ register }) => {
+const RegisterView = ({ register, isAuthenticated, errors }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,6 +37,12 @@ const RegisterView = ({ register }) => {
       <div className='container'>
         <h1>Register</h1>
         <p>Create your account</p>
+        {errors
+          ? errors.map((e) => <div className='error'>Error: {e.msg}</div>)
+          : null}
+        {isAuthenticated ? (
+          <div className='success'>Register complete!</div>
+        ) : null}
         <form onSubmit={(e) => onSubmit(e)}>
           <div className='form-group'>
             <input
@@ -96,4 +102,9 @@ RegisterView.propTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { register })(RegisterView);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  errors: state.auth.errors,
+});
+
+export default connect(mapStateToProps, { register })(RegisterView);
