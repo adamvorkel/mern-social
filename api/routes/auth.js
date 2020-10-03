@@ -45,7 +45,9 @@ router.post(
       // authenticate user
       let user = await User.findOne({ email });
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ errors: { msg: 'Invalid credentials' } });
+        return res
+          .status(401)
+          .json({ errors: [{ msg: 'Invalid credentials' }] });
       }
 
       // create token
