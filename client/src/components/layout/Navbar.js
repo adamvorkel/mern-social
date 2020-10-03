@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <header id='navbar'>
       <div id='navbar-logo'>
-        <a href='/'>Chatter</a>
+        <Link to='/'>Chatter</Link>
       </div>
       <div id='navbar-search'>
         <span id='navbar-search-icon'>

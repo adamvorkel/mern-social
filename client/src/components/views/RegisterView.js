@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { register } from '../../actions/auth';
 
-const RegisterView = ({ register, isAuthenticated, errors }) => {
+const RegisterView = ({ register, errors }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,17 +13,17 @@ const RegisterView = ({ register, isAuthenticated, errors }) => {
     password2: '',
   });
 
+  const [validationErrors, setValidationErrors] = useState([]);
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.password2) {
-      // TODO: show password match error in UI
-      console.log('Passwords must match');
+      setValidationErrors([{ msg: 'Passwords must match' }]);
     } else {
-      // TODO: post to users api endpoint to create new user
-      // TODO: display success message if all goes well
+      setValidationErrors([]);
       register({
         name: formData.name,
         email: formData.email,
@@ -38,11 +38,14 @@ const RegisterView = ({ register, isAuthenticated, errors }) => {
         <h1>Register</h1>
         <p>Create your account</p>
         {errors
-          ? errors.map((e) => <div className='error'>Error: {e.msg}</div>)
+          ? errors.map((e) => (
+              <div className='error' key={e.param}>
+                {e.msg}
+              </div>
+            ))
           : null}
-        {isAuthenticated ? (
-          <div className='success'>Register complete!</div>
-        ) : null}
+        {validationErrors &&
+          validationErrors.map((e) => <div className='error'>{e.msg}</div>)}
         <form onSubmit={(e) => onSubmit(e)}>
           <div className='form-group'>
             <input
@@ -103,7 +106,6 @@ RegisterView.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
   errors: state.auth.errors,
 });
 

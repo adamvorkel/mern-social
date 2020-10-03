@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -9,8 +9,18 @@ import LandingView from './components/views/LandingView';
 import LoginView from './components/views/LoginView';
 import RegisterView from './components/views/RegisterView';
 import './App.css';
+import setAuthToken from './helpers/setAuthToken';
+import { loadUser } from './actions/auth';
 
-function App() {
+if (localStorage['auth-token']) {
+  setAuthToken(localStorage['auth-token']);
+}
+
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <div className='App'>
@@ -30,6 +40,6 @@ function App() {
       </div>
     </Provider>
   );
-}
+};
 
 export default App;
