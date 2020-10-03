@@ -29,6 +29,10 @@ export const loadUser = () => async (dispatch) => {
         payload: { errors: [{ msg: 'Authentication failed' }] },
       });
     }
+  } else {
+    dispatch({
+      type: AUTH_ERROR,
+    });
   }
 };
 
