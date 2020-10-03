@@ -213,7 +213,6 @@ h6 {
   flex-direction: row;
   align-items: center;
   margin-right: 2rem;
-  display: none;
 }
 
 #navbar nav ul li .navbar-account-link a {

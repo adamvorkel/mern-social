@@ -9,6 +9,7 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 // LOGIN
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
 
 // AUTH
 export const USER_LOADED = 'USER_LOADED';
