@@ -10,10 +10,12 @@ const Navbar = ({ auth, logout }) => {
   const userLinks = (
     <ul>
       <li>
-        <div className='navbar-account-link'>
-          <span className='navbar-account-avatar'></span>
-          <a href='/'>Adam</a>
-        </div>
+        {auth.isAuthenticated && (
+          <div className='navbar-account-link'>
+            <span className='navbar-account-avatar'></span>
+            <a href='#!'>{auth.user && auth.user.name}</a>
+          </div>
+        )}
       </li>
       <li>
         <a onClick={logout}>Logout</a>
