@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { login } from '../../actions/auth';
 
-const LoginView = ({ login, errors }) => {
+const LoginView = ({ login, isAuthenticated, errors }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,11 +16,12 @@ const LoginView = ({ login, errors }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // TODO: post to auth api endpoint to login user
-    // TODO: redirect to user profile
     login(formData);
-    console.log(formData);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/profile' />;
+  }
 
   return (
     <section id='login' className='view'>
@@ -74,9 +75,12 @@ const LoginView = ({ login, errors }) => {
 
 LoginView.propTypes = {
   login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  errors: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
   errors: state.auth.errors,
 });
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { register } from '../../actions/auth';
 
-const RegisterView = ({ register, errors }) => {
+const RegisterView = ({ register, isAuthenticated, errors }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,6 +31,10 @@ const RegisterView = ({ register, errors }) => {
       });
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/profile' />;
+  }
 
   return (
     <section id='register' className='view'>
@@ -103,9 +107,12 @@ const RegisterView = ({ register, errors }) => {
 
 RegisterView.propTypes = {
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  errors: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
   errors: state.auth.errors,
 });
 
