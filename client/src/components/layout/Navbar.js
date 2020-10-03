@@ -13,7 +13,7 @@ const Navbar = ({ auth, logout }) => {
         {auth.isAuthenticated && (
           <div className='navbar-account-link'>
             <span className='navbar-account-avatar'></span>
-            <a href='#!'>{auth.user && auth.user.name}</a>
+            <Link to='/profile'>{auth.user && auth.user.name}</Link>
           </div>
         )}
       </li>
