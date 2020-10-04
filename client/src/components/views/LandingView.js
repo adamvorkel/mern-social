@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link, Redirect } from 'react-router-dom';
 
-const LandingView = () => {
+const LandingView = ({ isAuthenticated }) => {
+  if (isAuthenticated) return <Redirect to='/profile' />;
   return (
     <section id='landing'>
       <div className='landing-welcome'>
@@ -20,4 +23,12 @@ const LandingView = () => {
   );
 };
 
-export default LandingView;
+LandingView.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(LandingView);
