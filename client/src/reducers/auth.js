@@ -42,7 +42,7 @@ const auth = (state = initState, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
-        errors: payload && payload.errors,
+        errors: payload,
       };
     default:
       return state;

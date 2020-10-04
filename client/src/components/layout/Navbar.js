@@ -18,7 +18,7 @@ const Navbar = ({ auth, logout }) => {
         )}
       </li>
       <li>
-        <a onClick={logout}>Logout</a>
+        <button onClick={logout}>Logout</button>
       </li>
     </ul>
   );

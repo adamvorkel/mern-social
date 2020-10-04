@@ -56,9 +56,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     const errors =
       error.response && error.response.data && error.response.data.errors;
 
-    const payload = errors
-      ? { errors }
-      : { errors: [{ message: 'Something went wrong' }] };
+    const payload = errors ? errors : [{ message: 'Something went wrong' }];
     dispatch({
       type: REGISTER_FAIL,
       payload,
@@ -85,9 +83,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   } catch (error) {
     const errors =
       error.response && error.response.data && error.response.data.errors;
-    const payload = errors
-      ? { errors }
-      : { errors: [{ message: 'Something went wrong' }] };
+    const payload = errors ? errors : [{ message: 'Something went wrong' }];
     dispatch({
       type: LOGIN_FAIL,
       payload,

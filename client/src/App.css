@@ -102,6 +102,10 @@ h6 {
   margin-bottom: 0.25em;
 }
 
+h1 {
+  font-size: 2.5rem;
+}
+
 .strong {
   font-weight: 500;
 }
@@ -109,9 +113,6 @@ h6 {
 /**
 * Layout
 **/
-.view {
-  margin-top: 3rem;
-}
 .container {
   max-width: 800px;
   width: 100%;
@@ -230,9 +231,10 @@ h6 {
 }
 
 /**
-* Pages
+* Views
 **/
 
+/** Landing **/
 #landing {
   height: 100vh;
   width: 100vw;
@@ -256,8 +258,10 @@ h6 {
   margin-top: 1em;
 }
 
+/** Login & Register **/
 #login,
 #register {
+  margin-top: 3rem;
   text-align: center;
 }
 
@@ -266,4 +270,64 @@ h6 {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.spinner {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.spinner::before,
+.spinner::after {
+  content: '';
+  position: absolute;
+  display: block;
+  border: 3px solid #000;
+  opacity: 1;
+  border-radius: 50%;
+  animation: loading-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  width: 50px;
+  height: 50px;
+}
+
+.spinner::after {
+  animation-delay: -0.5s;
+}
+@keyframes loading-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.profile-header {
+  background: #f1f1f1;
+  padding: 3rem 0;
+}
+
+.profile-header-content {
+  display: flex;
+}
+
+.profile-header-content .profile-header-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 3rem;
+  background-color: #000;
+}
+
+.profile-header-content .profile-header-details {
+  margin-top: 2rem;
 }
