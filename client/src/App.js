@@ -33,12 +33,12 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path='/' component={LandingView} />
+            <Route exact path='/login' component={LoginView} />
+            <Route exact path='/register' component={RegisterView} />
             <Route>
               <Navbar />
               <Alert />
               <Switch>
-                <Route exact path='/login' component={LoginView} />
-                <Route exact path='/register' component={RegisterView} />
                 <PrivateRoute exact path='/profile' component={ProfileView} />
               </Switch>
             </Route>

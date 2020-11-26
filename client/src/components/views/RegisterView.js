@@ -5,7 +5,14 @@ import PropTypes from 'prop-types';
 
 import { register, clearAuthErrors } from '../../actions/auth';
 
-const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) => {
+import Errors from '../layout/Errors';
+
+const RegisterView = ({ 
+  register, 
+  clearAuthErrors, 
+  isAuthenticated, 
+  errors 
+}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,7 +35,8 @@ const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) =>
   const onSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.password2) {
-      setValidationErrors([{ msg: 'Passwords must match' }]);
+      clearAuthErrors();
+      setValidationErrors([{ msg: 'Passwords must match', param: 'password2' }]);
     } else {
       setValidationErrors([]);
       register({
@@ -46,17 +54,8 @@ const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) =>
   return (
     <section id='register' className='view'>
       <div className='container'>
-        <h1>Register</h1>
-        <p>Create your account</p>
-        {errors
-          ? errors.map((e) => (
-              <div className='error' key={e.msg}>
-                {e.msg}
-              </div>
-            ))
-          : null}
-        {validationErrors &&
-          validationErrors.map((e) => <div className='error' key={e.msg}>{e.msg}</div>)}
+        <h1>Register on Chatter</h1>
+        {errors && <Errors errors={errors.filter(e => !e.param)} /> }
         <form onSubmit={(e) => onSubmit(e)}>
           <div className='form-group'>
             <input
@@ -67,6 +66,7 @@ const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) =>
               placeholder='Name'
               // required
             />
+            {errors && <Errors errors={errors.filter(e => e.param === 'name')} /> }
           </div>
           <div className='form-group'>
             <input
@@ -77,6 +77,7 @@ const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) =>
               placeholder='Email'
               // required
             />
+            {errors && <Errors errors={errors.filter(e => e.param === 'email')} /> }
           </div>
           <div className='form-group'>
             <input
@@ -87,6 +88,7 @@ const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) =>
               placeholder='Password'
               // required
             />
+            {errors && <Errors errors={errors.filter(e => e.param === 'password')} /> }
           </div>
           <div className='form-group'>
             <input
@@ -97,6 +99,7 @@ const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) =>
               placeholder='Confirm Password'
               // required
             />
+            {validationErrors && <Errors errors={validationErrors.filter(e => e.param === 'password2')} /> }
           </div>
           <div className='form-group'>
             <button type='submit' className='primary-button fat'>

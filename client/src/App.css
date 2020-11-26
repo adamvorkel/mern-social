@@ -1,5 +1,5 @@
 :root {
-  --font-display: 'Jost', sans-serif;
+  --font-display: 'Roboto', sans-serif;
   --font-text: 'Roboto', sans-serif;
   --font-bold: 700;
 
@@ -98,7 +98,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  line-height: 1.1em;
+  line-height: 1.15em;
   margin-bottom: 0.25em;
 }
 
@@ -136,6 +136,7 @@ h1 {
 
 .error {
   color: var(--error-color);
+  margin-top: 0.5rem;
 }
 
 .success {
@@ -265,8 +266,14 @@ h1 {
   text-align: center;
 }
 
+#login h1,
+#register h1 {
+  font-size: 1.5rem;
+}
+
 #login form,
 #register form {
+  text-align: left;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;

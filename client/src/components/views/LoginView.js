@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import { login, clearAuthErrors } from '../../actions/auth';
 
+import Errors from '../layout/Errors';
+
 const LoginView = ({ login, clearAuthErrors, isAuthenticated, errors }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -26,22 +28,13 @@ const LoginView = ({ login, clearAuthErrors, isAuthenticated, errors }) => {
     login(formData);
   };
 
-  if (isAuthenticated) {
-    return <Redirect to='/profile' />;
-  }
-
   return (
+    isAuthenticated ? 
+    <Redirect to='/profile' /> :
     <section id='login' className='view'>
       <div className='container'>
-        <h1>Login</h1>
-        <p>Login to your account</p>
-        {errors
-          ? errors.map((e) => (
-              <div className='error' key={e.param}>
-                {e.msg}
-              </div>
-            ))
-          : null}
+        <h1>Log in to Chatter</h1>
+        {errors && <Errors errors={errors.filter(e => !e.param)} /> }
         <form onSubmit={(e) => onSubmit(e)}>
           <div className='form-group'>
             <input
@@ -50,8 +43,9 @@ const LoginView = ({ login, clearAuthErrors, isAuthenticated, errors }) => {
               value={formData.email}
               onChange={(e) => onChange(e)}
               placeholder='Email'
-              required
+              // required
             />
+            {errors && <Errors errors={errors.filter(e => e.param === 'email')} /> }
           </div>
           <div className='form-group'>
             <input
@@ -60,13 +54,14 @@ const LoginView = ({ login, clearAuthErrors, isAuthenticated, errors }) => {
               value={formData.password}
               onChange={(e) => onChange(e)}
               placeholder='Password'
-              required
+              // required
             />
+            {errors && <Errors errors={errors.filter(e => e.param === 'email')} /> }
           </div>
 
           <div className='form-group'>
             <button type='submit' className='primary-button fat'>
-              Login
+              Log in
             </button>
           </div>
         </form>
