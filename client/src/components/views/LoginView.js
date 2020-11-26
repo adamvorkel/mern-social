@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { login } from '../../actions/auth';
+import { login, clearAuthErrors } from '../../actions/auth';
 
-const LoginView = ({ login, isAuthenticated, errors }) => {
+const LoginView = ({ login, clearAuthErrors, isAuthenticated, errors }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  // clear errors when unmounting
+  useEffect(() => {
+    return () => {
+      clearAuthErrors();
+    }
+  }, [clearAuthErrors]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -75,6 +82,7 @@ const LoginView = ({ login, isAuthenticated, errors }) => {
 
 LoginView.propTypes = {
   login: PropTypes.func.isRequired,
+  clearAuthErrors: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   errors: PropTypes.array,
 };
@@ -84,4 +92,4 @@ const mapStateToProps = (state) => ({
   errors: state.auth.errors,
 });
 
-export default connect(mapStateToProps, { login })(LoginView);
+export default connect(mapStateToProps, { login, clearAuthErrors })(LoginView);

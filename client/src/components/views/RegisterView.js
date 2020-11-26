@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { register } from '../../actions/auth';
+import { register, clearAuthErrors } from '../../actions/auth';
 
-const RegisterView = ({ register, isAuthenticated, errors }) => {
+const RegisterView = ({ register, clearAuthErrors, isAuthenticated, errors }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,6 +14,13 @@ const RegisterView = ({ register, isAuthenticated, errors }) => {
   });
 
   const [validationErrors, setValidationErrors] = useState([]);
+
+  // clear errors when unmounting
+  useEffect(() => {
+    return () => {
+      clearAuthErrors();
+    }
+  }, [clearAuthErrors]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,13 +50,13 @@ const RegisterView = ({ register, isAuthenticated, errors }) => {
         <p>Create your account</p>
         {errors
           ? errors.map((e) => (
-              <div className='error' key={e.param}>
+              <div className='error' key={e.msg}>
                 {e.msg}
               </div>
             ))
           : null}
         {validationErrors &&
-          validationErrors.map((e) => <div className='error'>{e.msg}</div>)}
+          validationErrors.map((e) => <div className='error' key={e.msg}>{e.msg}</div>)}
         <form onSubmit={(e) => onSubmit(e)}>
           <div className='form-group'>
             <input
@@ -107,6 +114,7 @@ const RegisterView = ({ register, isAuthenticated, errors }) => {
 
 RegisterView.propTypes = {
   register: PropTypes.func.isRequired,
+  clearAuthErrors: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   errors: PropTypes.array,
 };
@@ -116,4 +124,4 @@ const mapStateToProps = (state) => ({
   errors: state.auth.errors,
 });
 
-export default connect(mapStateToProps, { register })(RegisterView);
+export default connect(mapStateToProps, { register, clearAuthErrors })(RegisterView);

@@ -9,7 +9,7 @@ import Spinner from '../ui/Spinner';
 const ProfileView = ({ auth, profile, getCurrentProfile }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   if (profile.loading) {
     return <Spinner />;

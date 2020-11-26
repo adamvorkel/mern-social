@@ -8,6 +8,7 @@ import {
   LOGOUT,
   USER_LOADED,
   AUTH_ERROR,
+  CLEAR_AUTH_ERROR,
 } from './types';
 
 import setAuthToken from '../helpers/setAuthToken';
@@ -26,15 +27,17 @@ export const loadUser = () => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: AUTH_ERROR,
-        payload: { errors: [{ msg: 'Authentication failed' }] },
+        payload: [{ msg: 'Authentication failed' }],
       });
     }
-  } else {
-    dispatch({
-      type: AUTH_ERROR,
-    });
   }
 };
+
+export const clearAuthErrors = () => {
+  return {
+    type: CLEAR_AUTH_ERROR,
+  }
+}
 
 export const register = ({ name, email, password }) => async (dispatch) => {
   const config = {
@@ -53,10 +56,12 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (error) {
+    // if we get an array from server
     const errors =
       error.response && error.response.data && error.response.data.errors;
 
-    const payload = errors ? errors : [{ message: 'Something went wrong' }];
+    // something else went wrong
+    const payload = errors ? errors : [{ msg: 'Something went wrong' }];
     dispatch({
       type: REGISTER_FAIL,
       payload,
@@ -83,7 +88,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   } catch (error) {
     const errors =
       error.response && error.response.data && error.response.data.errors;
-    const payload = errors ? errors : [{ message: 'Something went wrong' }];
+    const payload = errors ? errors : [{ msg: 'Something went wrong' }];
     dispatch({
       type: LOGIN_FAIL,
       payload,

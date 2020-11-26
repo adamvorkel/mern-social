@@ -1,12 +1,14 @@
 import {
   USER_LOADED,
   AUTH_ERROR,
+  CLEAR_AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
 } from '../actions/types';
+
 
 const initState = {
   token: localStorage['auth-token'],
@@ -43,6 +45,11 @@ const auth = (state = initState, action) => {
         loading: false,
         user: null,
         errors: payload,
+      };
+    case CLEAR_AUTH_ERROR:
+      return {
+        ...state,
+        errors: null,
       };
     default:
       return state;
