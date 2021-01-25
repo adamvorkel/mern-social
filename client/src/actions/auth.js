@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  USER_LOADED,
+  AUTH_SUCCESS,
+  AUTH_NONE,
   AUTH_ERROR,
   CLEAR_AUTH_ERROR,
 } from './types';
@@ -21,7 +22,7 @@ export const loadUser = () => async (dispatch) => {
     try {
       const res = await axios.get('api/auth');
       dispatch({
-        type: USER_LOADED,
+        type: AUTH_SUCCESS,
         payload: res.data,
       });
     } catch (error) {
@@ -30,6 +31,10 @@ export const loadUser = () => async (dispatch) => {
         payload: [{ msg: 'Authentication failed' }],
       });
     }
+  } else {
+    dispatch({
+      type: AUTH_NONE,
+    });
   }
 };
 

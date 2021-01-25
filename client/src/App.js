@@ -24,7 +24,12 @@ if (localStorage['auth-token']) {
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    if (localStorage['auth-token']) {
+      store.dispatch(loadUser());
+    } else {
+      store.dispatch({ type: 'AUTH_NONE' });
+    }
+    
   }, []);
 
   return (

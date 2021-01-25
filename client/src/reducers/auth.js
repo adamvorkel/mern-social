@@ -1,5 +1,6 @@
 import {
-  USER_LOADED,
+  AUTH_SUCCESS,
+  AUTH_NONE,
   AUTH_ERROR,
   CLEAR_AUTH_ERROR,
   LOGIN_SUCCESS,
@@ -21,7 +22,7 @@ const initState = {
 const auth = (state = initState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case USER_LOADED:
+    case AUTH_SUCCESS:
       return { ...state, isAuthenticated: true, loading: false, user: payload };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
@@ -33,6 +34,7 @@ const auth = (state = initState, action) => {
         loading: false,
         errors: null,
       };
+    case AUTH_NONE:
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:

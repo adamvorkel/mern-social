@@ -12,8 +12,9 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 
 // AUTH
-export const USER_LOADED = 'USER_LOADED';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_NONE = 'AUTH_NONE';
 export const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
 
 // PROFILE
