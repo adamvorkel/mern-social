@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { getCurrentProfile } from '../../actions/profile';
@@ -25,7 +26,23 @@ const ProfileView = ({ auth, profile, getCurrentProfile }) => {
             </div>
           </div>
         </div>
-        <div className='container'></div>
+        <div className='profile-content'>
+          <div className='container'>
+            {profile.profile ? 
+              (
+              <h2>Bio</h2>
+              ) : 
+              (
+              <>
+              <h2>Create Profile</h2>
+              <p>You have not yet created a profile. Let's get you set up</p>
+              <Link to='/create-profile' className='button primary-button'>Create profile</Link>
+              </>
+              )
+            }
+          </div>
+        </div>
+        
       </section>
     );
   }

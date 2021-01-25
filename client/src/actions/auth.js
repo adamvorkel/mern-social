@@ -10,6 +10,7 @@ import {
   AUTH_NONE,
   AUTH_ERROR,
   CLEAR_AUTH_ERROR,
+  CLEAR_PROFILE,
 } from './types';
 
 import setAuthToken from '../helpers/setAuthToken';
@@ -102,7 +103,6 @@ export const login = ({ email, password }) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  dispatch({
-    type: LOGOUT,
-  });
+  dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: LOGOUT });
 };
