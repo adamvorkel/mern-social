@@ -21,7 +21,7 @@ const ProfileView = ({ auth, profile, getCurrentProfile }) => {
             <div className='profile-header-avatar'></div>
             <div className='profile-header-details'>
               <h1>{auth.user && auth.user.name}</h1>
-              <h2>Bio</h2>
+    <div className="tag">{auth.user && `@${auth.user.name.split(' ')[0].toLowerCase()}`}</div>
             </div>
           </div>
         </div>

@@ -168,6 +168,7 @@ h1 {
 
 #navbar-logo {
   font-family: var(--font-display);
+  font-weight: var(--font-bold);
 }
 
 #navbar-logo a {
@@ -175,6 +176,7 @@ h1 {
   padding: 1rem;
   font-size: 1.25rem;
   line-height: 1em;
+  text-decoration: none;
 }
 
 #navbar-search {
@@ -328,13 +330,16 @@ h1 {
 }
 
 .profile-header-content .profile-header-avatar {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   margin-right: 3rem;
   background-color: #000;
+  flex-shrink: 0;
 }
 
 .profile-header-content .profile-header-details {
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
