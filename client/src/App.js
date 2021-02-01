@@ -15,6 +15,7 @@ import LandingView from './components/views/LandingView';
 import LoginView from './components/views/LoginView';
 import RegisterView from './components/views/RegisterView';
 import ProfileView from './components/views/ProfileView';
+import CreateProfileView from './components/views/CreateProfileView';
 // style
 import './App.css';
 
@@ -29,7 +30,6 @@ const App = () => {
     } else {
       store.dispatch({ type: 'AUTH_NONE' });
     }
-    
   }, []);
 
   return (
@@ -45,6 +45,7 @@ const App = () => {
               <Alert />
               <Switch>
                 <PrivateRoute exact path='/profile' component={ProfileView} />
+                <PrivateRoute exact path='/create-profile' component={CreateProfileView} />
               </Switch>
             </Route>
           </Switch>
